@@ -15,7 +15,7 @@ ifndef CGO_ENABLED
 endif
 
 
-LDFLAGS += -X 'github.com/NHAS/reverse_ssh/internal.Version=$(shell git describe --tags)'
+LDFLAGS += -X 'github.com/NHAS/reverse_ssh/internal.Version=$(git describe --tags)'
 
 LDFLAGS_RELEASE = $(LDFLAGS) -s -w
 

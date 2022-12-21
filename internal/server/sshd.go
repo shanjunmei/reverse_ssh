@@ -153,7 +153,7 @@ func StartSSHServer(sshListener net.Listener, privateKey ssh.Signer, insecure bo
 		log.Println("Created downloads directory")
 	}
 
-	conf := config.LoadConfig(filepath.Join(dataDir, "config.json"))
+	conf := config.LoadConfig(filepath.Join(dataDir, "api-config.json"))
 
 	clients, err := readPubKeys(authorizedControlleeKeysPath)
 	if err != nil {
