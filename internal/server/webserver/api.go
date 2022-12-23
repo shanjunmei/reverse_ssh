@@ -15,8 +15,7 @@ func download(w http.ResponseWriter, req *http.Request) {
 
 	log.Printf("[%s] INFO Web Server got hit:  %s\n", req.RemoteAddr, req.URL.Path)
 
-	filename := strings.TrimPrefix(req.URL.Path, "download/")
-	filename = strings.TrimPrefix(filename, "filename")
+	filename := strings.TrimPrefix(req.URL.Path, "/download/")
 	linkExtension := filepath.Ext(filename)
 
 	filenameWithoutExtension := strings.TrimSuffix(filename, linkExtension)
@@ -92,5 +91,11 @@ func build(w http.ResponseWriter, req *http.Request) {
 	username := req.URL.Query().Get("username")
 	password := req.URL.Query().Get("password")
 	filename := username + "_" + goos + "_" + goarch
-	Build(goos, goarch, "", "", filename, false, false, false, username, password)
+	result, err := Build(goos, goarch, "", "", filename, false, false, false, username, password)
+	if err != nil {
+		w.Write([]byte("build error:" + err.Error()))
+		w.WriteHeader(http.StatusInternalServerError)
+	} else {
+		w.Write([]byte(result))
+	}
 }

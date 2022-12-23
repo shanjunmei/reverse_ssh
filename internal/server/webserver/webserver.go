@@ -43,7 +43,7 @@ func Start(webListener net.Listener, connectBackAddress, projRoot, dataDir strin
 
 func createHandler() *http.ServeMux {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/download", download)
+	mux.HandleFunc("/download/", download)
 	mux.HandleFunc("/build", build)
 	return mux
 }
